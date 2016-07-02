@@ -15,6 +15,6 @@ useful for developing:
 addEventHandler("onClientRender", root,
 	function ()
 		local currentWeapon = getElementData(localPlayer, "current_weapon")
-		dxDrawText("Current weapon: "..currentWeapon, 10, 400)
+		dxDrawText("Current weapon: "..currentWeapon.id, 10, 400)
 	end
 )

@@ -16,7 +16,9 @@ function giveCustomWeapon (player, weaponid, ammo, setAsCurrent)
 	end 
 	setElementData(player, "weapons", playerWeapons)
 	if setAsCurrent == true then 
-		setElementData(player, "current_weapon", weaponid)
+		local cw = {}
+		cw.id = weaponid
+		setElementData(player, "current_weapon", cw)
 	end
 	return true
 end
@@ -31,6 +33,8 @@ function setPedCustomWeaponSlot (ped, slot)
 	if not pedWeapons[slot] then 
 		error("Ped does not have weapon with id "..slot)
 	return false end 
-	setElementData(ped, "current_weapon", slot)
+	local cw = {}
+	cw.id = slot
+	setElementData(ped, "current_weapon", cw)
 	return true
 end

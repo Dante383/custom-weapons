@@ -1,4 +1,5 @@
 <meta>
+	<include resource="bone_attach"/>
 	<script src="utils.lua" type="server" />
 	<script src="cw_c.lua" type="client" />
 	<script src="cw_s.lua" type="server" />

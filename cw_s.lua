@@ -18,10 +18,34 @@ addEventHandler("onResourceStart", resourceRoot, init)
 
 function onPlayerConnect ()
 	setElementData(source, "weapons", {}) -- here will be stored weapons owned by the player
-	setElementData(source, "current_weapon", 0) -- fist. 
+	local cw = {}
+	cw.id = 0
+	setElementData(source, "current_weapon", cw) -- fist. 
 	giveCustomWeapon(source, 0)
 end
 addEventHandler("onPlayerConnect", root, onPlayerConnect)
+
+function onSlotChange (plr)
+	local currentWeapon = getElementData(plr, "current_weapon")
+	if currentWeapon.model then 
+		exports['bone_attach']:detachElementFromBone(currentWeapon.model)
+		destroyElement(currentWeapon.model)
+	end
+	local weapon = getWeaponByID(currentWeapon.id)
+	if weapon == false then return false end 
+	if weapon.modelid then 
+		currentWeapon.model = createObject(weapon.modelid, 0,0,0)
+		exports['bone_attach']:attachElementToBone(currentWeapon.model, plr, 12, 0, 0, 0, 0, -90, 0)
+	end
+end
+
+addEventHandler("onElementDataChange", root,
+	function (name, oldValue)
+		if name == "current_weapon" then 
+			onSlotChange(source)
+		end
+	end
+)
 
 
 
@@ -40,7 +64,7 @@ addEventHandler("onElementDataChange", root,
 		if name == "weapons" then 
 			outputChatBox("'Weapons' changed!")
 		elseif name == "current_weapon" then 
-			outputChatBox("'current_weapon' is now "..getElementData(source, name))
+			outputChatBox("'current_weapon' is now "..getElementData(source, name).id)
 		end
 	end
 )
