@@ -1,9 +1,11 @@
 <weapons>
 	<weapon>
+		<id>0</id> <!-- yes, we can manually set weapon id. -->
 		<name>Fist</name>
 		<fire_type>hand</fire_type>
 	</weapon>
 	<weapon>
+		<id>10</id>
 		<name>AK-47</name>
 		<modelid>355</modelid>
 		<range>45</range>
