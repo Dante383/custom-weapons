@@ -19,6 +19,7 @@ addEventHandler("onResourceStart", resourceRoot, init)
 function onPlayerConnect ()
 	setElementData(source, "weapons", {}) -- here will be stored weapons owned by the player
 	setElementData(source, "current_weapon", 0) -- fist. 
+	giveCustomWeapon(source, 0)
 end
 addEventHandler("onPlayerConnect", root, onPlayerConnect)
 

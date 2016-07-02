@@ -6,3 +6,15 @@
 	toggleControl("aim_weapon", false)
 end
 addEventHandler("onClientResourceStart", root, init)
+
+
+--[[
+useful for developing:
+]]
+
+addEventHandler("onClientRender", root,
+	function ()
+		local currentWeapon = getElementData(localPlayer, "current_weapon")
+		dxDrawText("Current weapon: "..currentWeapon, 10, 400)
+	end
+)
