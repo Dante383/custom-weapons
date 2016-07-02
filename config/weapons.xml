@@ -1,6 +1,7 @@
 <weapons>
 	<weapon>
 		<name>Fist</name>
+		<fire_type>hand</fire_type>
 	</weapon>
 	<weapon>
 		<name>AK-47</name>
@@ -11,6 +12,7 @@
 		<maximum_clip_ammo>30</maximum_clip_ammo>
 		<heavy>false</heavy> <!-- can't jump with weapon -->
 		<crouch>true</crouch> <!-- crouch while using -->
-		<fire_type>ih</fire_type> <!-- avalible: ih (instant hit, e.g. pistol), projectile (e.g. rocket launcher)
+		<fire_type>ih</fire_type> <!-- avalible: ih (instant hit, e.g. pistol), projectile (e.g. rocket launcher), hand (e.g. baseball bat) -->
+		<speed>100</speed> <!-- delay between shots (miliseconds) -->
 	</weapon>
 </weapons>
