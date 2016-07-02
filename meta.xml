@@ -1,0 +1,6 @@
+<meta>
+	<script src="cw_c.lua" type="client" />
+	<script src="cw_s.lua" type="server" />
+	<script src="exports_c.lua" type="client" />
+	<script src="exports_s.lua" type="server" />
+</meta>
