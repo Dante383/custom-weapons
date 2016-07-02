@@ -1,0 +1,16 @@
+<weapons>
+	<weapon>
+		<name>Fist</name>
+	</weapon>
+	<weapon>
+		<name>AK-47</name>
+		<modelid>355</modelid>
+		<range>45</range>
+		<accuracy>0.5</accuracy>
+		<damage>5</damage>
+		<maximum_clip_ammo>30</maximum_clip_ammo>
+		<heavy>false</heavy> <!-- can't jump with weapon -->
+		<crouch>true</crouch> <!-- crouch while using -->
+		<fire_type>ih</fire_type> <!-- avalible: ih (instant hit, e.g. pistol), projectile (e.g. rocket launcher)
+	</weapon>
+</weapons>
