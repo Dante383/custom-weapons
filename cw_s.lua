@@ -16,6 +16,15 @@ function init ()
 end
 addEventHandler("onResourceStart", resourceRoot, init)
 
+function deinitialize ()
+	for k,v in ipairs(getElementsByType("player")) do 
+		local cw = {}
+		cw.id = 0
+		setElementData(v, "current_weapon", cw)
+	end
+end
+addEventHandler("onResourceStop", resourceRoot, deinitialize)
+
 function onPlayerConnect ()
 	setElementData(source, "weapons", {}) -- here will be stored weapons owned by the player
 	local cw = {}
@@ -29,6 +38,7 @@ function onSlotChange (plr)
 	local currentWeapon = getElementData(plr, "current_weapon")
 	local temp = getElementData(plr, "cw_temp") -- exist only if weapon has own model. maybe fix it?
 	if temp then
+		if currentWeapon.id == temp.id then return end
 		if getWeaponByID(temp.id).walking_style ~= 0 then 
 			exports['bone_attach']:detachElementFromBone(temp.model)
 			destroyElement(temp.model)
@@ -48,6 +58,12 @@ function onSlotChange (plr)
 		setElementData(plr, "cw_temp", false)
 	end
 end
+
+function onVehicleEnter (plr)
+	setPedCustomWeaponSlot(plr, 0)
+end
+addEventHandler("onVehicleEnter", root, onVehicleEnter)
+addEventHandler("onVehicleStartEnter", root, onVehicleEnter)
 
 addEventHandler("onElementDataChange", root,
 	function (name, oldValue)
