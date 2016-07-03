@@ -72,6 +72,8 @@ addEventHandler("onElementDataChange", root,
 	function (name, oldValue)
 		if name == "current_weapon" then 
 			onSlotChange(source)
+		elseif name == "rotz" then 
+			setElementRotation(source, 0, 0, getElementData(source, name))
 		end
 	end
 )
