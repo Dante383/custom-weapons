@@ -9,4 +9,6 @@
 	
 	<export function="giveCustomWeapon" type="server"/>
 	<export function="setPedCustomWeaponSlot" type="server"/>
+	
+	<file src="img/crosshairs/crosshair_1.png"/>
 </meta>
