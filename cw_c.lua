@@ -90,8 +90,12 @@ function shot ()
 end
 
 function shotStart ()
-	if temp_variables["aiming"] == false then return end 
-	temp_variables["timer"] = setTimer(shot, temp_variables["weapon_data"].speed, 0)
+	if temp_variables["aiming"] == true then 
+		temp_variables["timer"] = setTimer(shot, temp_variables["weapon_data"].speed, 0)
+	else  -- hand weapon, ex. 
+		setControlState("fire", true)
+		setTimer(setControlState, 500, 1, "fire", false)
+	end
 end
 
 function shotStop ()
@@ -114,9 +118,6 @@ function updateCamera ()
 		setCameraMatrix(tx+2, ty-0.5, tz+0.2, x3, y3, z3)
 		]]
 		if not temp_variables["weapon"] then return end 
-		local mx,my = getCrosshairPosition()
-		local x,y,z = getWorldFromScreenPosition(mx, my, 10)
-		--setWeaponTarget(temp_variables["weapon"], x, y, z)
 		local rotx,roty,rotz = getCameraRotation()
 		setElementData(localPlayer, "rotz", 360-rotz) -- it will be set serverside
 	end
