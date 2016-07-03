@@ -4,6 +4,7 @@ local sw,sh = guiGetScreenSize()
 
 local settings = {}
 settings["aim"] = "mouse2" -- right click
+settings["shot"] = "mouse1" -- left click
 
 local temp_variables = {}
 temp_variables["aiming"] = false 
@@ -13,6 +14,7 @@ temp_variables["crosshair_height"] = false
 temp_variables["crosshair_texture"] = false
 temp_variables["mouse_x"] = false 
 temp_variables["mouse_y"] = false
+temp_variables["weapon"] = false
 
 function init ()
 	-- disable original weapons
@@ -22,6 +24,8 @@ function init ()
 	toggleControl("aim_weapon", false)
 	bindKey(settings["aim"], "down", startAiming)
 	bindKey(settings["aim"], "up", stopAiming)
+	bindKey(settings["shot"], "down", shotStart)
+	bindKey(settings["shot"], "up", shotStop)
 end
 addEventHandler("onClientResourceStart", root, init)
 
@@ -47,6 +51,13 @@ function startAiming ()
 	temp_variables["crosshair_x"] = sw/2
 	temp_variables["crosshair_y"] = sh/2
 	temp_variables["crosshair_texture"] = dxCreateTexture(temp_variables["crosshair"])
+	temp_variables["weapon_data"] = weapon
+	if weapon.fire_type == "ih" then 
+		local x,y,z = getPedBonePosition(localPlayer, 8)
+		temp_variables["weapon"] = createWeapon("m4", x, y, z)
+		setElementAlpha(temp_variables["weapon"], 0)
+		exports['bone_attach']:attachElementToBone(temp_variables["weapon"], localPlayer, 12, 0, 0, 0, 0, -90, 0)
+	end
 	-- everything below needs rewrite when i find a way to write it better
 	triggerServerEvent("setAnimation", localPlayer, "SHOP", "SHP_Gun_Aim")
 end
@@ -60,8 +71,25 @@ function stopAiming ()
 	temp_variables["crosshair_texture"] = false
 	temp_variables["crosshair_x"] = false
 	temp_variables["crosshair_y"] = false
+	exports['bone_attach']:detachElementFromBone(temp_variables["weapon"])
+	destroyElement(temp_variables["weapon"])
+	temp_variables["weapon"] = false
 	setCameraTarget(localPlayer)
 	triggerServerEvent("setAnimation", localPlayer, nil, nil)
+end
+
+function shot ()
+	if temp_variables["aiming"] == false then return end 
+	fireWeapon(temp_variables["weapon"])
+end
+
+function shotStart ()
+	if temp_variables["aiming"] == false then return end 
+	temp_variables["timer"] = setTimer(shot, temp_variables["weapon_data"].speed, 0)
+end
+
+function shotStop ()
+	killTimer(temp_variables["timer"])
 end
 
 function updateCamera ()
