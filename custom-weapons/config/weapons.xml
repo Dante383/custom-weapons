@@ -1,0 +1,22 @@
+<weapons>
+	<weapon>
+		<id>0</id> <!-- yes, we can manually set weapon id. -->
+		<name>Fist</name>
+		<fire_type>hand</fire_type>
+	</weapon>
+	<weapon>
+		<id>10</id>
+		<name>AK-47</name>
+		<modelid>355</modelid>
+		<range>45</range>
+		<accuracy>0.5</accuracy>
+		<damage>5</damage>
+		<maximum_clip_ammo>30</maximum_clip_ammo>
+		<heavy>false</heavy> <!-- can't jump with weapon -->
+		<crouch>true</crouch> <!-- crouch while using -->
+		<fire_type>ih</fire_type> <!-- avalible: ih (instant hit, e.g. pistol), projectile (e.g. rocket launcher), hand (e.g. baseball bat) -->
+		<speed>100</speed> <!-- delay between shots (miliseconds) -->
+		<walking_style>60</walking_style>
+		<crosshair>1</crosshair> <!-- crosshairs are available in img/crosshairs -->
+	</weapon>
+</weapons>
