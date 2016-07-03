@@ -16,7 +16,6 @@
 		<crouch>true</crouch> <!-- crouch while using -->
 		<fire_type>ih</fire_type> <!-- avalible: ih (instant hit, e.g. pistol), projectile (e.g. rocket launcher), hand (e.g. baseball bat) -->
 		<speed>100</speed> <!-- delay between shots (miliseconds) -->
-		<anim_block></anim_block>
-		<anim></anim>
+		<walking_style>60</walking_style>
 	</weapon>
 </weapons>
