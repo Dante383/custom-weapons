@@ -1,4 +1,6 @@
-﻿local sw,sh = guiGetScreenSize()
+﻿addEvent("setAnimation", true)
+
+local sw,sh = guiGetScreenSize()
 
 local settings = {}
 settings["aim"] = "mouse2" -- right click
@@ -45,7 +47,8 @@ function startAiming ()
 	temp_variables["crosshair_x"] = sw/2
 	temp_variables["crosshair_y"] = sh/2
 	temp_variables["crosshair_texture"] = dxCreateTexture(temp_variables["crosshair"])
-	temp_variables["mouse_x"], temp_variables["mouse_y"] = getCursorPosition()
+	-- everything below needs rewrite when i find a way to write it better
+	triggerServerEvent("setAnimation", localPlayer, "SHOP", "SHP_Gun_Aim")
 end
 
 function stopAiming ()
@@ -57,13 +60,8 @@ function stopAiming ()
 	temp_variables["crosshair_texture"] = false
 	temp_variables["crosshair_x"] = false
 	temp_variables["crosshair_y"] = false
-	temp_variables["mouse_x"] = false
-	temp_variables["mouse_y"] = false
 	setCameraTarget(localPlayer)
-end
-
-function updateMousePosition (x, y)
-	temp_variables["mouse_x"], temp_variables["mouse_y"] = x,y 
+	triggerServerEvent("setAnimation", localPlayer, nil, nil)
 end
 
 function updateCamera ()
@@ -76,10 +74,10 @@ function updateCamera ()
 		local tx = x + radius * math.sin(radRot)
 		local ty = y + -(radius) * math.cos(radRot)
 		local tz = z
-		setCameraMatrix(tx+2, ty-0.5, tz+0.2, x, y, z)
+		setCameraMatrix(tx+2, ty-0.5, tz+0.2, x3, y3, z3)
 	end
 end
-addEventHandler("onClientPreRender", root, updateCamera)
+--addEventHandler("onClientPreRender", root, updateCamera)
 
 function render()
 	if temp_variables["aiming"] == true then 
