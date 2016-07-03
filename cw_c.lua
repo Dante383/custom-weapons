@@ -28,6 +28,7 @@ function getCrosshairPathByID (id)
 end
 
 function startAiming ()
+	if getPedOccupiedVehicle(localPlayer) then return end
 	outputChatBox("start aiming")
 	local weapon = getElementData(localPlayer, "current_weapon")
 	weapon = getWeaponByID(weapon.id)
@@ -70,7 +71,12 @@ function updateCamera ()
 		local x,y,z = getPedBonePosition(localPlayer, 8)
 		local x2,y2,z2 = getElementPosition(localPlayer)
 		local rotx,roty,rotz = getElementRotation(localPlayer)
-		setCameraMatrix(x+2, y-0.5, z+0.2, 0, 0, 0)
+		local radRot = math.rad(rotz)
+		local radius = .5
+		local tx = x + radius * math.sin(radRot)
+		local ty = y + -(radius) * math.cos(radRot)
+		local tz = z
+		setCameraMatrix(tx+2, ty-0.5, tz+0.2, x, y, z)
 	end
 end
 addEventHandler("onClientPreRender", root, updateCamera)
