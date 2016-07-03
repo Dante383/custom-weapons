@@ -7,6 +7,10 @@
 end
 addEventHandler("onClientResourceStart", root, init)
 
+function getCrosshairPathByID (id)
+	return "img/crosshairs/"..id..".png"
+end
+
 
 --[[
 useful for developing:
