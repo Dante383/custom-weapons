@@ -13,6 +13,9 @@ function init ()
 	end
 	xmlUnloadFile(config)
 	outputDebugString("Loaded "..#weapons.." weapons.")
+	setTimer(function() -- mta is too fast :D	
+		triggerClientEvent("fetchWeapons", root, weapons)
+	end, 500, 1)
 end
 addEventHandler("onResourceStart", resourceRoot, init)
 
@@ -25,14 +28,14 @@ function deinitialize ()
 end
 addEventHandler("onResourceStop", resourceRoot, deinitialize)
 
-function onPlayerConnect ()
+function onPlayerJoin ()
 	setElementData(source, "weapons", {}) -- here will be stored weapons owned by the player
 	local cw = {}
 	cw.id = 0
 	setElementData(source, "current_weapon", cw) -- fist. 
 	giveCustomWeapon(source, 0)
 end
-addEventHandler("onPlayerConnect", root, onPlayerConnect)
+addEventHandler("onPlayerJoin", root, onPlayerJoin)
 
 function onSlotChange (plr)
 	local currentWeapon = getElementData(plr, "current_weapon")
