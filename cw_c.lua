@@ -35,7 +35,7 @@ end
 
 function startAiming ()
 	if getPedOccupiedVehicle(localPlayer) then return end
-	outputChatBox("start aiming")
+	outputChatBox("start aiming", 0, 255, 0)
 	local weapon = getElementData(localPlayer, "current_weapon")
 	weapon = getWeaponByID(weapon.id)
 	if weapon == false then return end
@@ -63,7 +63,7 @@ function startAiming ()
 end
 
 function stopAiming ()
-	outputChatBox("stop aiming")
+	outputChatBox("stop aiming", 255, 0, 0)
 	temp_variables["aiming"] = false 
 	temp_variables["crosshair"] = false
 	temp_variables["crosshair_width"] = false 
@@ -71,8 +71,10 @@ function stopAiming ()
 	temp_variables["crosshair_texture"] = false
 	temp_variables["crosshair_x"] = false
 	temp_variables["crosshair_y"] = false
-	exports['bone_attach']:detachElementFromBone(temp_variables["weapon"])
-	destroyElement(temp_variables["weapon"])
+	if isElement(temp_variables["weapon"]) then
+		exports['bone_attach']:detachElementFromBone(temp_variables["weapon"])
+		destroyElement(temp_variables["weapon"])
+	end
 	temp_variables["weapon"] = false
 	setCameraTarget(localPlayer)
 	triggerServerEvent("setAnimation", localPlayer, nil, nil)
@@ -89,7 +91,9 @@ function shotStart ()
 end
 
 function shotStop ()
-	killTimer(temp_variables["timer"])
+	if isTimer(temp_variables["timer"]) then
+		killTimer(temp_variables["timer"])
+	end
 end
 
 function updateCamera ()
